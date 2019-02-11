@@ -20,8 +20,9 @@ public class BucketController : MonoBehaviour
     float tillFull;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
+
         bucketWaterSprite = bucketWater.GetComponent<Image>();
         empty.onClick.AddListener(emptyWater);
         timer = 0.0f;
@@ -30,18 +31,20 @@ public class BucketController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime / waterFillTimer;
+        timer += Time.deltaTime/ waterFillTimer;
         // time relative till what is at fill
-        tillFull = timer * waterFillTimer;
+        tillFull = timer* waterFillTimer;
+        bucketWaterSprite.fillAmount = timer;
+
         timeRelativeToFill.text = (tillFull - waterFillTimer).ToString();
     }
 
     void emptyWater()
     {
-        timePassFill.text =(tillFull - waterFillTimer).ToString();
-        timer = 0.0f;
-        bucketWaterSprite.fillAmount = 0.0f;
 
+        timePassFill.text = (tillFull - waterFillTimer).ToString();
+            timer = 0.0f;
+            bucketWaterSprite.fillAmount = 0.0f;
     }
 
 

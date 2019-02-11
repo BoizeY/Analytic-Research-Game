@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 176, y: 34}
+  m_AnchoredPosition: {x: 13.7, y: 74.6}
   m_SizeDelta: {x: 250, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7884260461456873307
@@ -187,7 +187,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 278.7, y: 3.5}
+  m_AnchoredPosition: {x: 116.400024, y: 44.099976}
   m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1746113778977552690
@@ -241,13 +241,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 409270322117267306}
+  - component: {fileID: 4880376969392013939}
   m_Layer: 0
   m_Name: container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &409270322117267306
 RectTransform:
   m_ObjectHideFlags: 0
@@ -274,6 +275,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4880376969392013939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2785138419273565674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5848e877bb83d5147a147ded1a931313, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bucketWater: {fileID: 5796000735436013074}
+  empty: {fileID: 1715574179804072467}
+  waterFillTimer: 10
+  timeRelativeToFill: {fileID: 2569885306307674632}
+  timePassFill: {fileID: 7420122829665166799}
+  canEmptyPercentage: 0.8
+  container: {fileID: 2785138419273565674}
 --- !u!1 &3520607488389500180
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +328,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 151, y: 3}
+  m_AnchoredPosition: {x: -11.299988, y: 43.599976}
   m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &583237466889166488
@@ -466,7 +486,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 279, y: 34}
+  m_AnchoredPosition: {x: 116.70001, y: 74.599976}
   m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2391216263295956179
@@ -581,7 +601,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -596,7 +616,6 @@ GameObject:
   - component: {fileID: 7707172105849851689}
   - component: {fileID: 4742657384708586645}
   - component: {fileID: 4847324593896502479}
-  - component: {fileID: 8774094128764180262}
   m_Layer: 0
   m_Name: Game1
   m_TagString: Untagged
@@ -661,24 +680,6 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &8774094128764180262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6563920996648694631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5848e877bb83d5147a147ded1a931313, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bucketWater: {fileID: 5796000735436013074}
-  empty: {fileID: 1715574179804072467}
-  waterFillTimer: 10
-  timeRelativeToFill: {fileID: 2569885306307674632}
-  timePassFill: {fileID: 7420122829665166799}
-  container: {fileID: 2785138419273565674}
 --- !u!1 &7182644616475237105
 GameObject:
   m_ObjectHideFlags: 0

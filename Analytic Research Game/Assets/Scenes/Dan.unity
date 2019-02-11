@@ -376,10 +376,7 @@ MonoBehaviour:
   numCols: 5
   timeBetweenGameActivations: 5
   gamePrefabs:
-  - {fileID: 5694749721383834850, guid: 289b775240608e64ca33570b0c7ae34d, type: 3}
-  - {fileID: 6360881021834100162, guid: c278e03e60bfa2c4490c4ab47904ae33, type: 3}
-  - {fileID: 679683852873175696, guid: 93a0f1460d5f2564880c9ed2313bd380, type: 3}
-  - {fileID: 5410334832227028307, guid: 4c980685d46404844a373e2e155c2110, type: 3}
+  - {fileID: 6563920996648694631, guid: e90ca69ea6a836944bc12f06c7c6bd71, type: 3}
 --- !u!114 &734304801
 MonoBehaviour:
   m_ObjectHideFlags: 0
