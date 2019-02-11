@@ -57,9 +57,9 @@ public class Game_Controller : MonoBehaviour
     {
         // If no more games to add, the full round is over
         // TODO: Load the results screen
-        // TEMP: Reload this scene
+        // TEMP: Do nothing
         if (remainingGames.Count == 0)
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            return;
 
         // Determine the game that is going to be enabled
         int gameIndex = Random.Range(0, remainingGames.Count);
