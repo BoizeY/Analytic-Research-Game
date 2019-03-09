@@ -81,7 +81,7 @@ public class Game_Controller : MonoBehaviour
     {
         // Set the bucket filltime
         int fillValID = playOrders[participantGroup, roundID];
-        BucketController.waterFillTimer = fillTimes[fillValID];
+        BucketController.fillDuration = fillTimes[fillValID];
 
         // Start the round
         roundStarted = true;
@@ -116,7 +116,7 @@ public class Game_Controller : MonoBehaviour
     public void EndRound()
     {
         // Output the data to the file
-        dataManager.ExportData(participantID, participantGroup, (int)BucketController.waterFillTimer);
+        dataManager.ExportData(participantID, participantGroup, (int)BucketController.fillDuration);
 
         // Reload the scene for the next round OR end the test session
         if (roundID != 3)

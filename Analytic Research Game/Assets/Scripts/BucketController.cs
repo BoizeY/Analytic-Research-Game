@@ -5,21 +5,20 @@ using UnityEngine.UI;
 
 public class BucketController : MonoBehaviour
 {
-
+    // How long until the bucket reaches the fill line in the center of the bucket (in seconds)
+    public static float fillDuration; 
+    // The number of seconds into the current filling
+    private float currentFillTime;
     public GameObject bucketWater;
     public Button empty;
-    public static float waterFillTimer;
-    public Text timeRelativeToFill;
-    public Text timePassFill;
-    public float canEmptyPercentage;
-
     public GameObject container;
 
-    Image bucketWaterSprite;
-    float timer;
-    float tillFull;
 
+    private Image bucketWaterSprite;
     private Data_Manager dataManager;
+    private bool isPaused;
+    private float currentPauseTime;
+    private float pauseDuration;
 
     private void Awake()
     {
@@ -29,49 +28,61 @@ public class BucketController : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
-
+        // Init the sprite and the button listener
         bucketWaterSprite = bucketWater.GetComponent<Image>();
         empty.onClick.AddListener(emptyWater);
-        timer = 0.0f;
 
-        
+        // Reset the fill time when the bucket is spawned
+        currentFillTime = 0.0f;
+        isPaused = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime/ waterFillTimer;
-        // time relative till what is at fill
-        tillFull = timer* waterFillTimer;
-        bucketWaterSprite.fillAmount = timer;
+        if (!isPaused)
+        {
+            // Increase the fill amount
+            currentFillTime += Time.deltaTime;
+
+            // Update the sprite
+            bucketWaterSprite.fillAmount = (currentFillTime / fillDuration) * 0.5f;
+        }
+        else
+        {
+            // Increase the pause timer
+            currentPauseTime += Time.deltaTime;
+
+            // If the pause is over, we should go back to filling up
+            if (currentPauseTime >= pauseDuration)
+                isPaused = false;
+        }
     }
 
     void emptyWater()
     {
-        // Pass the calculated error percentage to the data manager
-        float fillAmount = (tillFull - waterFillTimer);
-        float fillNormalized = 0.0f;
+        // Calculate the normalized fill amount
+        float fillNormalized = (currentFillTime >= fillDuration) ? (currentFillTime - fillDuration) / fillDuration : 1.0f - (currentFillTime/fillDuration); 
 
-        // If its too early use [-1, 0) and put that in the early list. Otherwise use [0, +infinity] and put that into the late list
-        // Early...-1 is completely empty, 0 is perfectly on the line. Late ... 0 is perfectly on the line, 1 is the top of the bucket, but can keep going for all the overflow amounts
-        if (fillAmount >= waterFillTimer)
-        {
-            fillNormalized = (fillAmount - waterFillTimer) / waterFillTimer;
-        }
-        else
-        {
-            fillNormalized = fillAmount / waterFillTimer;
-        }
-
-        // Add the data point. It gets automatically sorted into the late or early lists
+        // Pass the data point into the data manager
         dataManager.AddDataPoint(fillNormalized);
 
-        timePassFill.text = fillAmount.ToString();
-        timer = 0.0f;
+        // Reset the fill amount
+        currentFillTime = 0.0f;
         bucketWaterSprite.fillAmount = 0.0f;
+
+        // Now, the bucket should be paused for a bit before refilling to prevent the dominant strategy
+        isPaused = true;
+        pauseDuration = Random.Range(0.0f, 1.0f);
+        currentPauseTime = 0.0f;
     }
     void setGameOff(bool set)
     {
         container.SetActive(set);
+    }
+
+    void ResetPause()
+    {
+
     }
 }
