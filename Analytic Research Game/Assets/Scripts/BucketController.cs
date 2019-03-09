@@ -19,6 +19,13 @@ public class BucketController : MonoBehaviour
     float timer;
     float tillFull;
 
+    private Data_Manager dataManager;
+
+    private void Awake()
+    {
+        dataManager = GameObject.FindObjectOfType<Data_Manager>();
+    }
+
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -26,6 +33,8 @@ public class BucketController : MonoBehaviour
         bucketWaterSprite = bucketWater.GetComponent<Image>();
         empty.onClick.AddListener(emptyWater);
         timer = 0.0f;
+
+        
     }
 
     // Update is called once per frame
@@ -41,8 +50,11 @@ public class BucketController : MonoBehaviour
 
     void emptyWater()
     {
+        // Pass the calculated error percentage to the data manager
+        float fillAmount = (tillFull - waterFillTimer);
+        dataManager.AddDataPoint(new Data_Point(fillAmount));
 
-        timePassFill.text = (tillFull - waterFillTimer).ToString();
+        timePassFill.text = fillAmount.ToString();
             timer = 0.0f;
             bucketWaterSprite.fillAmount = 0.0f;
     }

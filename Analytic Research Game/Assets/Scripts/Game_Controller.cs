@@ -20,7 +20,9 @@ public class Game_Controller : MonoBehaviour
     private Canvas canvas;
     private GridLayoutGroup gridLayout;
     private List<GameObject> remainingGames;
+    private Data_Manager dataManager;
     private float timeSinceLastActivation;
+    private bool doneSpawning;
 
 
 
@@ -30,8 +32,10 @@ public class Game_Controller : MonoBehaviour
         // Init the private variables
         canvas = GetComponent<Canvas>();
         gridLayout = GetComponent<GridLayoutGroup>();
+        dataManager = GetComponent<Data_Manager>();
         SpawnGames();
         timeSinceLastActivation = timeBetweenGameActivations;
+        doneSpawning = false;
     }
 
     void Update()
@@ -40,7 +44,7 @@ public class Game_Controller : MonoBehaviour
         timeSinceLastActivation += Time.deltaTime;
 
         // Spawn the next game if the time has come
-        if (timeSinceLastActivation >= timeBetweenGameActivations)
+        if (timeSinceLastActivation >= timeBetweenGameActivations && !doneSpawning)
         {
             // Enable the next game
             ActivateNextGame();
@@ -55,11 +59,13 @@ public class Game_Controller : MonoBehaviour
     //--- Methods ---//
     public void ActivateNextGame()
     {
-        // If no more games to add, the full round is over
-        // TODO: Load the results screen
-        // TEMP: Do nothing
+        // If no more games to add, wait a few more seconds and then end the game
         if (remainingGames.Count == 0)
+        {
+            doneSpawning = true;
+            Invoke("EndGame", timeBetweenGameActivations);
             return;
+        }
 
         // Determine the game that is going to be enabled
         int gameIndex = Random.Range(0, remainingGames.Count);
@@ -71,6 +77,15 @@ public class Game_Controller : MonoBehaviour
 
         // Remove the now active game from the list of deactivated ones
         remainingGames.RemoveAt(gameIndex);
+    }
+
+    public void EndGame()
+    {
+        // Output the data to the file
+        dataManager.ExportData();
+
+        // Reload the scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 
