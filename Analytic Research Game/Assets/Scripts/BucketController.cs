@@ -44,8 +44,6 @@ public class BucketController : MonoBehaviour
         // time relative till what is at fill
         tillFull = timer* waterFillTimer;
         bucketWaterSprite.fillAmount = timer;
-
-        timeRelativeToFill.text = (tillFull - waterFillTimer).ToString();
     }
 
     void emptyWater()
@@ -72,8 +70,6 @@ public class BucketController : MonoBehaviour
         timer = 0.0f;
         bucketWaterSprite.fillAmount = 0.0f;
     }
-
-
     void setGameOff(bool set)
     {
         container.SetActive(set);
