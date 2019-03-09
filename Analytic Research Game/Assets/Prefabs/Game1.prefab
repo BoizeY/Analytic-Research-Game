@@ -289,7 +289,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bucketWater: {fileID: 5796000735436013074}
   empty: {fileID: 1715574179804072467}
-  waterFillTimer: 10
+  waterFillTimer: 2
   timeRelativeToFill: {fileID: 2569885306307674632}
   timePassFill: {fileID: 7420122829665166799}
   canEmptyPercentage: 0.8

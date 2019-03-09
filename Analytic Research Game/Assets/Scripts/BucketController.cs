@@ -8,7 +8,7 @@ public class BucketController : MonoBehaviour
 
     public GameObject bucketWater;
     public Button empty;
-    public float waterFillTimer;
+    public static float waterFillTimer;
     public Text timeRelativeToFill;
     public Text timePassFill;
     public float canEmptyPercentage;
@@ -52,11 +52,25 @@ public class BucketController : MonoBehaviour
     {
         // Pass the calculated error percentage to the data manager
         float fillAmount = (tillFull - waterFillTimer);
-        dataManager.AddDataPoint(new Data_Point(fillAmount));
+        float fillNormalized = 0.0f;
+
+        // If its too early use [-1, 0) and put that in the early list. Otherwise use [0, +infinity] and put that into the late list
+        // Early...-1 is completely empty, 0 is perfectly on the line. Late ... 0 is perfectly on the line, 1 is the top of the bucket, but can keep going for all the overflow amounts
+        if (fillAmount >= waterFillTimer)
+        {
+            fillNormalized = (fillAmount - waterFillTimer) / waterFillTimer;
+        }
+        else
+        {
+            fillNormalized = fillAmount / waterFillTimer;
+        }
+
+        // Add the data point. It gets automatically sorted into the late or early lists
+        dataManager.AddDataPoint(fillNormalized);
 
         timePassFill.text = fillAmount.ToString();
-            timer = 0.0f;
-            bucketWaterSprite.fillAmount = 0.0f;
+        timer = 0.0f;
+        bucketWaterSprite.fillAmount = 0.0f;
     }
 
 
