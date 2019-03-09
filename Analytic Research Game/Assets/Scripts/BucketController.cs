@@ -44,8 +44,6 @@ public class BucketController : MonoBehaviour
         // time relative till what is at fill
         tillFull = timer* waterFillTimer;
         bucketWaterSprite.fillAmount = timer;
-
-        timeRelativeToFill.text = (tillFull - waterFillTimer).ToString();
     }
 
     void emptyWater()
@@ -53,13 +51,9 @@ public class BucketController : MonoBehaviour
         // Pass the calculated error percentage to the data manager
         float fillAmount = (tillFull - waterFillTimer);
         dataManager.AddDataPoint(new Data_Point(fillAmount));
-
-        timePassFill.text = fillAmount.ToString();
             timer = 0.0f;
             bucketWaterSprite.fillAmount = 0.0f;
     }
-
-
     void setGameOff(bool set)
     {
         container.SetActive(set);
