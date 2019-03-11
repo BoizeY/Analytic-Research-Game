@@ -9,6 +9,7 @@ public class UI_Manager : MonoBehaviour
     public GameObject ID_inputForm;
     public Text IDInput;
     public Button btn_Next;
+    public GameObject tutorial;
 
     public GameObject consentForm;
     public Button btn_Agree;
@@ -33,5 +34,6 @@ public class UI_Manager : MonoBehaviour
 
     public void consentFormHandler(){
         consentForm.SetActive(false);
+        tutorial.SetActive(true);
     }
 }
