@@ -14,6 +14,8 @@ public class UI_Manager : MonoBehaviour
     public GameObject consentForm;
     public Button btn_Agree;
 
+    public InputField in_ID;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,9 +29,16 @@ public class UI_Manager : MonoBehaviour
     }
 
     public void IDInputHandler(){
-        //TODO:Data extaction
-        ID_inputForm.SetActive(false);
-        consentForm.SetActive(true);
+
+        // Send the participant ID to the game controller, assuming the input can be parsed correctly
+        int ID = -1;
+        if (int.TryParse(in_ID.text, out ID)) {
+
+            Game_Controller.SetParticipantID(ID);
+
+            ID_inputForm.SetActive(false);
+            consentForm.SetActive(true);
+        }
     }
 
     public void consentFormHandler(){

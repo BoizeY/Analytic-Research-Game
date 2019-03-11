@@ -40,7 +40,6 @@ public class Game_Controller : MonoBehaviour
     private void Awake()
     {
         // TEMP:
-        SetParticipantID(20);
         dataManager = GetComponent<Data_Manager>();
         dataManager.SetTotalNumBuckets(numRows * numCols);
     }

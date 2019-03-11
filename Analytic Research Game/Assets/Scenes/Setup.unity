@@ -1504,7 +1504,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Example: P01_A'
+  m_Text: 'Ex: 5'
 --- !u!222 &1217543191
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2476,6 +2476,7 @@ MonoBehaviour:
   tutorial: {fileID: 711968409}
   consentForm: {fileID: 889037789}
   btn_Agree: {fileID: 1620288178}
+  in_ID: {fileID: 0}
 --- !u!1 &1950997822
 GameObject:
   m_ObjectHideFlags: 0
