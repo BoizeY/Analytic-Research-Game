@@ -40,7 +40,9 @@ public class Game_Controller : MonoBehaviour
     private void Awake()
     {
         // TEMP:
-        SetParticipantID(6);
+        SetParticipantID(20);
+        dataManager = GetComponent<Data_Manager>();
+        dataManager.SetTotalNumBuckets(numRows * numCols);
     }
 
     void Start()
@@ -48,7 +50,6 @@ public class Game_Controller : MonoBehaviour
         // Init the private variables
         canvas = GetComponent<Canvas>();
         gridLayout = GetComponent<GridLayoutGroup>();
-        dataManager = GetComponent<Data_Manager>();
         timeSinceLastActivation = 0.0f;
         doneSpawning = false;
         roundStarted = false;
@@ -87,6 +88,7 @@ public class Game_Controller : MonoBehaviour
         roundStarted = true;
         SpawnGames();
         ActivateNextBucket();
+        dataManager.EnableDataCollection();
     }
 
     public void ActivateNextBucket()
@@ -106,11 +108,11 @@ public class Game_Controller : MonoBehaviour
         // Enable the game controls in the scene
         remainingBuckets[gameIndex].transform.GetChild(0).gameObject.SetActive(true);
 
+        // Tell the data manager that the next game has activated
+        dataManager.NextBucket(remainingBuckets[gameIndex].GetComponentInChildren<BucketController>());
+
         // Remove the now active game from the list of deactivated ones
         remainingBuckets.RemoveAt(gameIndex);
-
-        // Tell the data manager that the next game has activated
-        dataManager.NextBucket();
     }
 
     public void EndRound()

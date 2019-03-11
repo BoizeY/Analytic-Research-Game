@@ -62,10 +62,14 @@ public class BucketController : MonoBehaviour
     void emptyWater()
     {
         // Calculate the normalized fill amount
-        float fillNormalized = (currentFillTime >= fillDuration) ? (currentFillTime - fillDuration) / fillDuration : 1.0f - (currentFillTime/fillDuration); 
+        float fillNormalized = GetFillNormalized();
 
-        // Pass the data point into the data manager
-        dataManager.AddDataPoint(fillNormalized);
+        // Pass the early data point into the data manager if the click was early
+        //if (fillNormalized < 0.0f)
+         //   dataManager.AddEarlyDataPoint(fillNormalized);
+
+        // Every click, we average out the values for ALL of the buckets on the screen
+        //dataManager.AddAveragedLateData();
 
         // Reset the fill amount
         currentFillTime = 0.0f;
@@ -84,5 +88,20 @@ public class BucketController : MonoBehaviour
     void ResetPause()
     {
 
+    }
+
+    public float GetFillNormalized()
+    {
+        return (currentFillTime >= fillDuration) ? (currentFillTime - fillDuration) / fillDuration : -(1.0f - (currentFillTime / fillDuration));
+    }
+
+    public float GetFillAmount_Seconds()
+    {
+        return currentFillTime;
+    }
+
+    public float GetFillAmount_Normalized()
+    {
+        return currentFillTime / fillDuration;
     }
 }
