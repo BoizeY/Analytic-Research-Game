@@ -19,3 +19,9 @@ Build/
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
+
+*.ide
+
+*.ide-shm
+
+*.ide-wal
