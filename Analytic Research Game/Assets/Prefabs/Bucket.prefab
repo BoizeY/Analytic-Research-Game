@@ -90,7 +90,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &409270322117267306
 RectTransform:
   m_ObjectHideFlags: 0
@@ -127,9 +127,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bucketWater: {fileID: 5796000735436013074}
   empty: {fileID: 1715574179804072467}
-  timeRelativeToFill: {fileID: 0}
-  timePassFill: {fileID: 0}
-  canEmptyPercentage: 0.8
   container: {fileID: 2785138419273565674}
 --- !u!1 &5796000735436013074
 GameObject:

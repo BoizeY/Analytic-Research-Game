@@ -614,9 +614,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numRows: 4
   numCols: 5
-  timeBetweenGameActivations: 5
-  gamePrefabs:
-  - {fileID: 6563920996648694631, guid: e90ca69ea6a836944bc12f06c7c6bd71, type: 3}
+  roundDuration: 60
+  fillTimeRange: {x: 10, y: 15}
+  bucketPrefab: {fileID: 6563920996648694631, guid: e90ca69ea6a836944bc12f06c7c6bd71,
+    type: 3}
 --- !u!114 &734304801
 MonoBehaviour:
   m_ObjectHideFlags: 0

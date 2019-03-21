@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class BucketController : MonoBehaviour
 {
-    // How long until the bucket reaches the fill line in the center of the bucket (in seconds)
-    public static float fillDuration; 
     // The number of seconds into the current filling
+    private Vector2 fillDurationRange;
+    private float fillDuration;
     private float currentFillTime;
     public GameObject bucketWater;
     public Button empty;
@@ -103,5 +101,20 @@ public class BucketController : MonoBehaviour
     public float GetFillAmount_Normalized()
     {
         return currentFillTime / fillDuration;
+    }
+
+    public void ResetFillTime()
+    {
+        // Randomly select the fill duration within the range
+        fillDuration = Random.Range(fillDurationRange.x, fillDurationRange.y);
+    }
+
+    public void SetFillDurationRange(Vector2 _range)
+    {
+        // Set the fill range
+        this.fillDurationRange = _range;
+
+        // Now, init the fill time to something within that range
+        ResetFillTime();
     }
 }
