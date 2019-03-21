@@ -1,8 +1,24 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+
+public enum NotificationType
+{
+    NONE,
+    ANIMATION,
+    ICON,
+    COLOUR,
+    COUNT
+
+
+}
+
+
 public class BucketController : MonoBehaviour
 {
+    public NotificationType notificationStyle;
+    // How long until the bucket reaches the fill line in the center of the bucket (in seconds)
+    public float fillDuration;
     // The number of seconds into the current filling
     private Vector2 fillDurationRange;
     private float fillDuration;
@@ -10,6 +26,8 @@ public class BucketController : MonoBehaviour
     public GameObject bucketWater;
     public Button empty;
     public GameObject container;
+    public GameObject NotificationIcon;
+    public GameObject bucketWaterRed;
 
 
     private Image bucketWaterSprite;
@@ -29,6 +47,7 @@ public class BucketController : MonoBehaviour
         // Init the sprite and the button listener
         bucketWaterSprite = bucketWater.GetComponent<Image>();
         empty.onClick.AddListener(emptyWater);
+        empty.gameObject.SetActive(false);
 
         // Reset the fill time when the bucket is spawned
         currentFillTime = 0.0f;
@@ -55,6 +74,8 @@ public class BucketController : MonoBehaviour
             if (currentPauseTime >= pauseDuration)
                 isPaused = false;
         }
+        Notification();
+
     }
 
     void emptyWater()
@@ -77,6 +98,13 @@ public class BucketController : MonoBehaviour
         isPaused = true;
         pauseDuration = Random.Range(0.0f, 1.0f);
         currentPauseTime = 0.0f;
+        //disable button
+        empty.gameObject.SetActive(false);
+        gameObject.GetComponent<Animator>().SetBool("Shake", false);
+        NotificationIcon.SetActive(false);
+        bucketWaterSprite = bucketWater.GetComponent<Image>(); 
+        //also reset the fill for the red bucket
+        bucketWaterSprite.fillAmount = 0.0f;
     }
     void setGameOff(bool set)
     {
@@ -131,4 +159,35 @@ public class BucketController : MonoBehaviour
         float halfFull = fillDuration * 0.5f;
         return (currentFillTime - halfFull) / halfFull;
     }
+
+    public void Notification()
+    {
+
+        if (bucketWaterSprite.fillAmount > 0.5)
+        {
+            //make the empty bucket button active;
+            empty.gameObject.SetActive(true);
+
+            if (notificationStyle == NotificationType.NONE)
+            {
+
+            }
+            else if (notificationStyle == NotificationType.ANIMATION)
+            {
+                gameObject.GetComponent<Animator>().SetBool("Shake", true);
+                
+            }
+            else if (notificationStyle == NotificationType.ICON)
+            {
+                NotificationIcon.SetActive(true);
+            }
+            else if (notificationStyle == NotificationType.COLOUR)
+            {
+                bucketWaterSprite = bucketWaterRed.GetComponent<Image>();
+            }
+        }
+    }
+
 }
+
+
