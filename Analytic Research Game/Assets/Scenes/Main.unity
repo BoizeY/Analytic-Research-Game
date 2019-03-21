@@ -612,11 +612,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10e9544ca3e0c5a4290546638a2154cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numRows: 4
-  numCols: 5
-  roundDuration: 10
-  fillTimeRange: {x: 2, y: 5}
-  bucketPrefab: {fileID: 6563920996648694631, guid: e90ca69ea6a836944bc12f06c7c6bd71,
+  numRows: 3
+  numCols: 4
+  roundDuration: 60
+  fillTimeRange: {x: 2, y: 10}
+  bucketPrefab: {fileID: 5784815366582944195, guid: 37b79c6af00d55141bdb23a87d29ab57,
     type: 3}
 --- !u!114 &734304801
 MonoBehaviour:

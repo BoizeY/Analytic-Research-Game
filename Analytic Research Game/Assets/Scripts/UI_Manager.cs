@@ -35,6 +35,7 @@ public class UI_Manager : MonoBehaviour
         if (int.TryParse(in_ID.text, out ID)) {
 
             Game_Controller.SetParticipantID(ID);
+            Game_Controller.roundID = 0;
 
             ID_inputForm.SetActive(false);
             consentForm.SetActive(true);

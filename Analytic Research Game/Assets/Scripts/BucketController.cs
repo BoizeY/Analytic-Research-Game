@@ -17,8 +17,6 @@ public enum NotificationType
 public class BucketController : MonoBehaviour
 {
     public NotificationType notificationStyle;
-    // How long until the bucket reaches the fill line in the center of the bucket (in seconds)
-    public float fillDuration;
     // The number of seconds into the current filling
     private Vector2 fillDurationRange;
     private float fillDuration;
@@ -157,7 +155,7 @@ public class BucketController : MonoBehaviour
     {
         // Return the normalized amount that the bucket is filled ABOVE the fill line
         float halfFull = fillDuration * 0.5f;
-        return (currentFillTime - halfFull) / halfFull;
+        return (currentFillTime - halfFull);
     }
 
     public void Notification()

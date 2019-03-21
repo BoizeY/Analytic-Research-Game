@@ -1,11 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
-
-public enum NotificationType
-{
-    None,Icon,Colour,Animation
-}
 
 public class Data_Manager : MonoBehaviour
 {
@@ -107,6 +103,9 @@ public class Data_Manager : MonoBehaviour
             _participantGroup +
             ".csv";
 
+        // Sort the output list so it's always the same order
+        var sortedData = fullGameData.OrderBy(x => (int)x.notificationType).ToArray();
+
         // Open the file
         FileStream filestream = File.Open(filePath, FileMode.OpenOrCreate);
         StreamWriter streamWriter = new StreamWriter(filestream);
@@ -116,7 +115,7 @@ public class Data_Manager : MonoBehaviour
 
         // Write the persistent data array to the file
         for (int i = 0; i < fullGameData.Count; i++)
-            streamWriter.WriteLine(fullGameData[i].ToString());
+            streamWriter.WriteLine(sortedData[i].ToString());
 
         // Close the file
         streamWriter.Close();

@@ -122,6 +122,9 @@ public class Game_Controller : MonoBehaviour
 
                 // Tell the bucket to randomize its fill time between the range given in the inspector
                 bucket.SetFillDurationRange(fillTimeRange);
+
+                // Tell the bucket what notification type to use
+                bucket.notificationStyle = GetNotificationType();
             }
         }
     }
