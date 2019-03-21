@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -9,10 +8,11 @@ public class Game_Controller : MonoBehaviour
     [Header("Controls")]
     public int numRows;
     public int numCols;
-    public float timeBetweenGameActivations;
+    public float roundDuration;
+    public Vector2 fillTimeRange;
 
     [Header("Game List")]
-    public GameObject[] gamePrefabs;
+    public GameObject bucketPrefab;
 
 
 
@@ -26,32 +26,22 @@ public class Game_Controller : MonoBehaviour
     //--- Private Variables ---//
     private Canvas canvas;
     private GridLayoutGroup gridLayout;
-    private List<GameObject> remainingBuckets;
     private Data_Manager dataManager;
-    private float timeSinceLastActivation;
-    private bool doneSpawning;
     private bool roundStarted;
+    private float roundTimer;
     private readonly int[,] playOrders = { { 0, 1, 3, 2 }, { 1, 2, 0, 3 }, { 2, 3, 1, 0 }, { 3, 0, 2, 1 } }; //{ "ABDC", "BCAD", "CDBA", "DACB" };
-    private readonly float[] fillTimes = { 2.0f, 5.0f, 8.0f, 10.0f };
 
 
 
     //--- Unity Functions ---//
-    private void Awake()
-    {
-        // TEMP:
-        dataManager = GetComponent<Data_Manager>();
-        dataManager.SetTotalNumBuckets(numRows * numCols);
-    }
-
     void Start()
     {
         // Init the private variables
         canvas = GetComponent<Canvas>();
         gridLayout = GetComponent<GridLayoutGroup>();
-        timeSinceLastActivation = 0.0f;
-        doneSpawning = false;
+        dataManager = GetComponent<Data_Manager>();
         roundStarted = false;
+        roundTimer = 0.0f;
     }
 
     void Update()
@@ -59,18 +49,12 @@ public class Game_Controller : MonoBehaviour
         // Do nothing until the game has actually begun
         if (roundStarted)
         {
-            // Countdown to the next game spawn
-            timeSinceLastActivation += Time.deltaTime;
+            // Keep track of how long this round has been going on
+            roundTimer += Time.deltaTime;
 
-            // Spawn the next game if the time has come
-            if (timeSinceLastActivation >= timeBetweenGameActivations && !doneSpawning)
-            {
-                // Enable the next game
-                ActivateNextBucket();
-
-                // Reset the timer
-                timeSinceLastActivation = 0.0f;
-            }
+            // If the round is over, move on
+            if (roundTimer >= roundDuration)
+                EndRound();
         }
     }
 
@@ -79,51 +63,31 @@ public class Game_Controller : MonoBehaviour
     //--- Methods ---//
     public void StartRound()
     {
-        // Set the bucket filltime
-        int fillValID = playOrders[participantGroup, roundID];
-        BucketController.fillDuration = fillTimes[fillValID];
-
         // Start the round
         roundStarted = true;
         SpawnGames();
-        ActivateNextBucket();
-        dataManager.EnableDataCollection();
-    }
-
-    public void ActivateNextBucket()
-    {
-        // If no more buckets to add, wait a few more seconds and then end the round
-        if (remainingBuckets.Count == 0)
-        {
-            // Don't spawn any more buckets. When one more spawn cycle has passed, export the csv data
-            doneSpawning = true;
-            Invoke("EndRound", timeBetweenGameActivations);
-            return;
-        }
-
-        // Determine the game that is going to be enabled
-        int gameIndex = Random.Range(0, remainingBuckets.Count);
-
-        // Enable the game controls in the scene
-        remainingBuckets[gameIndex].transform.GetChild(0).gameObject.SetActive(true);
-
-        // Tell the data manager that the next game has activated
-        dataManager.NextBucket(remainingBuckets[gameIndex].GetComponentInChildren<BucketController>());
-
-        // Remove the now active game from the list of deactivated ones
-        remainingBuckets.RemoveAt(gameIndex);
+        dataManager.InitDataCollection();
     }
 
     public void EndRound()
     {
-        // Output the data to the file
-        dataManager.ExportData(participantID, participantGroup, (int)BucketController.fillDuration);
+        // Tell the data manager to save this round's data
+        dataManager.SaveRoundData(participantID, GetPaticipantGroupChar(), GetNotificationType());
 
         // Reload the scene for the next round OR end the test session
         if (roundID != 3)
+        {
+            // Reload the scene for the next round
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
         else
+        {
+            // Tell the data manager to save the data to the participant's file
+            dataManager.ExportData(participantID,  GetPaticipantGroupChar());
+
+            // Move to the thank you scene
             SceneManager.LoadScene("ThankYou");
+        }
 
         // Onto the next round
         roundID++;
@@ -131,6 +95,7 @@ public class Game_Controller : MonoBehaviour
 
     public static void SetParticipantID(int _id)
     {
+        // The participants will move through the groups from 1 - 4 and then loop back around
         participantID = _id;
         participantGroup = (_id % 4); 
     }
@@ -140,34 +105,46 @@ public class Game_Controller : MonoBehaviour
     //--- Utility Functions ---//
     private void SpawnGames()
     {
-        // Set up the array to store all of the games
-        remainingBuckets = new List<GameObject>();
-
-        // Need to determine the width and height of each game based on the canvas size and the number of rows/cols
+        // Need to determine the width and height of each buckets based on the canvas size and the number of rows/cols
         float gameWidth = canvas.pixelRect.width / (float)numCols;
         float gameHeight = canvas.pixelRect.height / (float)numRows;
 
         // Apply the width and height to the grid controller
         gridLayout.cellSize = new Vector2(gameWidth, gameHeight);
 
-        // Spawn all of the deactivated games into the scene and then add them to the list
+        // Spawn all of the buckets into the scene and tell them to randomize their fill time
         for (int row = 0; row < numRows; row++)
         {
             for (int col = 0; col < numCols; col++)
             {
-                int gameTypeIndex = Random.Range(0, gamePrefabs.Length);
-                GameObject game = Instantiate(gamePrefabs[gameTypeIndex], this.transform);
-                remainingBuckets.Add(game);
+                // Spawn the bucket
+                BucketController bucket = Instantiate(bucketPrefab, this.transform).GetComponentInChildren<BucketController>();
+
+                // Tell the bucket to randomize its fill time between the range given in the inspector
+                bucket.SetFillDurationRange(fillTimeRange);
             }
         }
     }
 
-
-
-    //--- Getters ---//
-    public int GetNumberOfBuckets()
+    private char GetPaticipantGroupChar()
     {
-        // We store the number of games left so we need the opposite of that to determine how many buckets there are
-        return (numCols * numRows) - remainingBuckets.Count;
+        // Convert the group ID into a char and return it
+        switch (participantGroup)
+        {
+            case 0:
+                return 'A';
+            case 1:
+                return 'B';
+            case 2:
+                return 'C';
+            default:
+                return 'D';
+        }
+    }
+
+    private NotificationType GetNotificationType()
+    {
+        // Get what noticiation type this player is interacting with from the playOrders array defined at the top
+        return (NotificationType)playOrders[participantGroup, roundID];
     }
 }

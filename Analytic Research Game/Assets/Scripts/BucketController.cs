@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class BucketController : MonoBehaviour
 {
-    // How long until the bucket reaches the fill line in the center of the bucket (in seconds)
-    public static float fillDuration; 
     // The number of seconds into the current filling
+    private Vector2 fillDurationRange;
+    private float fillDuration;
     private float currentFillTime;
     public GameObject bucketWater;
     public Button empty;
@@ -66,13 +64,13 @@ public class BucketController : MonoBehaviour
 
         // Pass the early data point into the data manager if the click was early
         //if (fillNormalized < 0.0f)
-         //   dataManager.AddEarlyDataPoint(fillNormalized);
+        //   dataManager.AddEarlyDataPoint(fillNormalized);
 
         // Every click, we average out the values for ALL of the buckets on the screen
         //dataManager.AddAveragedLateData();
 
         // Reset the fill amount
-        currentFillTime = 0.0f;
+        ResetFillTime();
         bucketWaterSprite.fillAmount = 0.0f;
 
         // Now, the bucket should be paused for a bit before refilling to prevent the dominant strategy
@@ -103,5 +101,34 @@ public class BucketController : MonoBehaviour
     public float GetFillAmount_Normalized()
     {
         return currentFillTime / fillDuration;
+    }
+
+    public void ResetFillTime()
+    {
+        // Randomly select the fill duration within the range
+        fillDuration = Random.Range(fillDurationRange.x, fillDurationRange.y);
+        currentFillTime = 0.0f;
+    }
+
+    public void SetFillDurationRange(Vector2 _range)
+    {
+        // Set the fill range
+        this.fillDurationRange = _range;
+
+        // Now, init the fill time to something within that range
+        ResetFillTime();
+    }
+
+    public bool GetIsInErrorState()
+    {
+        // The bucket is in 'error' if it is above half (ie: above its fill line)
+        return currentFillTime >= (fillDuration * 0.5f);
+    }
+
+    public float GetErrorAmount()
+    {
+        // Return the normalized amount that the bucket is filled ABOVE the fill line
+        float halfFull = fillDuration * 0.5f;
+        return (currentFillTime - halfFull) / halfFull;
     }
 }
