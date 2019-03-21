@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -35,18 +34,12 @@ public class Game_Controller : MonoBehaviour
 
 
     //--- Unity Functions ---//
-    private void Awake()
-    {
-        // Init the data manager 
-        dataManager = GetComponent<Data_Manager>();
-        dataManager.SetTotalNumBuckets(numRows * numCols);
-    }
-
     void Start()
     {
         // Init the private variables
         canvas = GetComponent<Canvas>();
         gridLayout = GetComponent<GridLayoutGroup>();
+        dataManager = GetComponent<Data_Manager>();
         roundStarted = false;
         roundTimer = 0.0f;
     }
@@ -73,19 +66,28 @@ public class Game_Controller : MonoBehaviour
         // Start the round
         roundStarted = true;
         SpawnGames();
-        dataManager.EnableDataCollection();
+        dataManager.InitDataCollection();
     }
 
     public void EndRound()
     {
-        // Output the data to the file
-        //dataManager.ExportData(participantID, participantGroup, (int)BucketController.fillDuration);
+        // Tell the data manager to save this round's data
+        dataManager.SaveRoundData(participantID, GetPaticipantGroupChar(), GetNotificationType());
 
         // Reload the scene for the next round OR end the test session
         if (roundID != 3)
+        {
+            // Reload the scene for the next round
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
         else
+        {
+            // Tell the data manager to save the data to the participant's file
+            dataManager.ExportData(participantID,  GetPaticipantGroupChar());
+
+            // Move to the thank you scene
             SceneManager.LoadScene("ThankYou");
+        }
 
         // Onto the next round
         roundID++;
@@ -122,5 +124,27 @@ public class Game_Controller : MonoBehaviour
                 bucket.SetFillDurationRange(fillTimeRange);
             }
         }
+    }
+
+    private char GetPaticipantGroupChar()
+    {
+        // Convert the group ID into a char and return it
+        switch (participantGroup)
+        {
+            case 0:
+                return 'A';
+            case 1:
+                return 'B';
+            case 2:
+                return 'C';
+            default:
+                return 'D';
+        }
+    }
+
+    private NotificationType GetNotificationType()
+    {
+        // Get what noticiation type this player is interacting with from the playOrders array defined at the top
+        return (NotificationType)playOrders[participantGroup, roundID];
     }
 }
