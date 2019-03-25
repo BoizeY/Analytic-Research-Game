@@ -615,7 +615,7 @@ MonoBehaviour:
   numRows: 3
   numCols: 4
   roundDuration: 60
-  fillTimeRange: {x: 2, y: 10}
+  fillTimeRange: {x: 7, y: 15}
   bucketPrefab: {fileID: 5784815366582944195, guid: 37b79c6af00d55141bdb23a87d29ab57,
     type: 3}
 --- !u!114 &734304801
