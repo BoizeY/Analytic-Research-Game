@@ -238,7 +238,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 550, y: -450}
+  m_AnchoredPosition: {x: 550, y: -475}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &255035859
@@ -465,67 +465,30 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 3
+    m_MaxSize: 50
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mollis accumsan
-    eleifend. Nullam commodo tristique est, at varius magna tincidunt ut. Mauris pharetra
-    ante in mi accumsan euismod. Mauris sollicitudin fringilla arcu, eu aliquet enim
-    pellentesque eu. Integer ornare dui non ante tristique ornare. Vivamus imperdiet
-    mi quis velit blandit gravida. Nunc malesuada vel felis eu feugiat. Duis ut nulla
-    dictum, mattis erat quis, venenatis lectus. Sed tincidunt, magna a lobortis lacinia,
-    felis sapien consequat mi, a hendrerit nulla mauris at justo. Integer porta tempus
-    blandit. Nunc sagittis nisi id nunc elementum, non vulputate nisi vestibulum.
-    Etiam posuere, dolor molestie laoreet condimentum, tellus quam faucibus leo, at
-    eleifend nisl arcu ac velit. Curabitur pretium a neque quis hendrerit. Suspendisse
-    non nisl pellentesque, porttitor augue nec, faucibus leo. Sed fermentum mi odio,
-    id pretium lectus suscipit eu.\r\n\r\nUt sagittis dui arcu, quis sodales tellus
-    elementum id. Proin vitae ligula id odio volutpat gravida. Integer in mauris id
-    erat ultricies porta tincidunt eu est. Nullam magna risus, laoreet eget laoreet
-    a, egestas ut odio. Vivamus facilisis fermentum gravida. Integer interdum purus
-    a ullamcorper lacinia. Quisque suscipit, felis in iaculis sodales, justo sapien
-    venenatis turpis, eget sodales libero est ac dui. Vestibulum eget auctor est.
-    Mauris varius lacinia sapien, a fringilla elit efficitur eu. Aenean fermentum
-    ipsum eget sapien vehicula iaculis. Phasellus at quam eros. Praesent sollicitudin
-    purus quis quam porta suscipit. Vestibulum at lectus et quam malesuada cursus.
-    Praesent eget congue nisl. Praesent elementum rutrum enim, sit amet viverra sapien
-    blandit ac.\r\n\r\nSed sodales ac nibh a egestas. Aenean molestie leo in purus
-    consectetur pretium. Quisque quis est mattis, convallis nunc non, lobortis ipsum.
-    Praesent libero felis, aliquam nec blandit nec, malesuada at mi. In pharetra justo
-    nunc, vel pretium mi ornare ac. Aliquam volutpat pretium sem, semper dapibus elit
-    iaculis id. Quisque volutpat enim nec fringilla interdum. In interdum pharetra
-    pellentesque. Nulla sagittis mi id ante iaculis tempus id eu arcu. Aenean convallis
-    dolor et gravida rutrum.\r\n\r\nNullam scelerisque tortor vel augue ullamcorper
-    blandit. Mauris sit amet velit volutpat odio scelerisque eleifend id in enim.
-    Morbi posuere posuere sagittis. Maecenas faucibus mauris ex, nec luctus enim posuere
-    id. Vivamus commodo, nibh semper congue convallis, orci elit aliquet mauris, a
-    aliquet diam nunc viverra velit. Praesent rhoncus nunc eu imperdiet maximus. Etiam
-    et nunc cursus, auctor nulla nec, elementum nulla. Suspendisse sollicitudin urna
-    ut diam facilisis, eu consectetur sem ultrices. Aenean eu sapien nec quam maximus
-    placerat non non tortor. Nunc ac massa at nisl sagittis lacinia non vitae urna.
-    Etiam eget est ullamcorper, consectetur nisl eget, dignissim urna. Aenean faucibus
-    semper eros a consequat. Donec risus orci, tincidunt at sagittis eleifend, tempor
-    et tellus. Ut iaculis sem quis erat tincidunt dictum. Donec elementum urna at
-    lectus blandit, molestie ornare erat lacinia.\r\n\r\nMorbi venenatis porta libero
-    iaculis eleifend. Nam mattis, lectus eget pellentesque congue, ipsum nisl scelerisque
-    nisi, a placerat nulla velit ut massa. Nam ac sollicitudin dui, et commodo dolor.
-    Ut ultricies libero malesuada tincidunt porta. Praesent orci augue, tincidunt
-    sed nunc quis, egestas mollis quam. Quisque eu diam ac diam venenatis varius eget
-    vel nulla. Aliquam sapien leo, aliquet ac suscipit facilisis, hendrerit ac justo.
-    Donec efficitur nec urna sed pretium. Duis congue tristique leo, at hendrerit
-    mi venenatis eu. Sed euismod turpis ac dui ullamcorper, convallis molestie lorem
-    scelerisque. Suspendisse vulputate accumsan lorem lacinia porttitor. Nunc finibus
-    malesuada libero, in dapibus massa. Nulla vel ligula non ligula vestibulum egestas.
-    Donec sodales porttitor nibh, non gravida ligula. Curabitur finibus elit vitae
-    ipsum pretium congue nec id lectus."
+  m_Text: "Consent Form (Adult)\r\n\r\nI agree to participate in the study conducted
+    by Daniel MacCormick and Wen Bo Yu. \r\n\r\nI understand that participation in
+    this study is voluntary and I agree to immediately raise any concerns or areas
+    of discomfort during the session with the study administrator. I understand that
+    I can stop or leave during this study at any moment without providing any explanation
+    about my decision.\r\n\r\nI have informed the study administrators about any medical
+    conditions that can be triggered visually. This includes conditions such as, motion
+    sickness and epilepsy.\r\n\r\nBy Clicking on the \u201CI Agree\u201D button below,
+    \u201CI\u201D the participant have read, and understand the information on this
+    form and that any questions I might have about the session have been answered.
+    \r\n\r\nIf you do not agree to any of the information on this form, or if have
+    questions that is/are not satisfactory you may stop and leave the study right
+    now.\r\n\r\n"
 --- !u!222 &340512276
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -971,14 +934,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7b8a2165e6fd1624ea4c77e6301766b6, type: 3}
   - {fileID: 21300000, guid: 2141137845944ac4fbf42e0ad723f7ff, type: 3}
   - {fileID: 21300000, guid: a18b5c9f6568268478fcd0021fd72cbf, type: 3}
-  - {fileID: 21300000, guid: d0b05e181faf74549adf44346199468f, type: 3}
-  - {fileID: 21300000, guid: 849cbb1e543bee344b56a9899b57761b, type: 3}
-  - {fileID: 21300000, guid: d1195225451e4da46843bbf48762d2cb, type: 3}
-  - {fileID: 21300000, guid: 56645f766d12a5c4fb6cdc315cfc9367, type: 3}
-  - {fileID: 21300000, guid: 7d55d256b478e1746a99af997148d92f, type: 3}
-  - {fileID: 21300000, guid: 3f40d28089fde864c8ffc6e555fa31a9, type: 3}
-  - {fileID: 21300000, guid: 258644c0b2cb95740bbd27af1f202acb, type: 3}
-  - {fileID: 21300000, guid: 06b284e99fa102044a4fba4486aaa8ca, type: 3}
+  - {fileID: 21300000, guid: fdfb048d3e0909a428463e1f20736a73, type: 3}
+  - {fileID: 21300000, guid: 13eeb2b6ea59da74d9dd1d32d0dbbd72, type: 3}
+  - {fileID: 21300000, guid: 44114a67adfb9244e9e397a163efe29d, type: 3}
   frame: {fileID: 1369304204}
   start: {fileID: 1275862467}
 --- !u!1 &815710135
@@ -1628,7 +1586,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -450}
+  m_AnchoredPosition: {x: 0, y: -475}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1275862469
@@ -2513,7 +2471,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -550, y: -450}
+  m_AnchoredPosition: {x: -550, y: -475}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1950997824
