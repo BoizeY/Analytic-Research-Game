@@ -15,6 +15,8 @@ public class UI_Manager : MonoBehaviour
     public Button btn_Agree;
 
     public InputField in_ID;
+    public InputField age;
+    public InputField gender;
 
     // Start is called before the first frame update
     void Start()
@@ -37,12 +39,15 @@ public class UI_Manager : MonoBehaviour
             Game_Controller.SetParticipantID(ID);
             Game_Controller.roundID = 0;
 
+
             ID_inputForm.SetActive(false);
             consentForm.SetActive(true);
         }
     }
 
     public void consentFormHandler(){
+
+        //TODO: send age and gender to game controller.
         consentForm.SetActive(false);
         tutorial.SetActive(true);
     }
