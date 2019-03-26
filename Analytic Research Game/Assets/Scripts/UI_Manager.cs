@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class UI_Manager : MonoBehaviour
@@ -47,7 +45,11 @@ public class UI_Manager : MonoBehaviour
 
     public void consentFormHandler(){
 
-        //TODO: send age and gender to game controller.
+        // Pass the participant age and gender onto the game controller
+        Game_Controller.participantAge = age.text;
+        Game_Controller.participantGender = gender.text;
+
+        // Switch to the tutorial
         consentForm.SetActive(false);
         tutorial.SetActive(true);
     }

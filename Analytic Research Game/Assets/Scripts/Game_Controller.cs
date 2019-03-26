@@ -19,6 +19,8 @@ public class Game_Controller : MonoBehaviour
     //--- Static Variables ---//
     public static int participantID = 0;
     public static int participantGroup = 0;
+    public static string participantAge = "";
+    public static string participantGender = "";
     public static int roundID = 0;
 
 
@@ -83,7 +85,7 @@ public class Game_Controller : MonoBehaviour
         else
         {
             // Tell the data manager to save the data to the participant's file
-            dataManager.ExportData(participantID,  GetPaticipantGroupChar());
+            dataManager.ExportData(participantID,  GetPaticipantGroupChar(), participantAge, participantGender);
 
             // Move to the thank you scene
             SceneManager.LoadScene("ThankYou");

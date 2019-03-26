@@ -93,7 +93,7 @@ public class Data_Manager : MonoBehaviour
         roundErrorRates.Clear();
     }
 
-    public void ExportData(int _participantID, char _participantGroup)
+    public void ExportData(int _participantID, char _participantGroup, string _participantAge, string _participantGender)
     {
         // Create the filename in the format ID#-Group.csv (ex: P01-B.csv)
         string filePath = Application.persistentDataPath + "/Data/" +
@@ -110,7 +110,10 @@ public class Data_Manager : MonoBehaviour
         FileStream filestream = File.Open(filePath, FileMode.OpenOrCreate);
         StreamWriter streamWriter = new StreamWriter(filestream);
 
-        // Output the headers
+        // Output the personal information about the participant
+        streamWriter.WriteLine("Age," + _participantAge + ",Gender," + _participantGender);
+
+        // Output the headers for the rest of the data set
         streamWriter.WriteLine("ParticipantID,ParticipantGroup,NotificationType,AvgErrorValue");
 
         // Write the persistent data array to the file
