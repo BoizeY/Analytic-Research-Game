@@ -101,6 +101,10 @@ print(ezANOVA(data = participantData, dv = .(AvgErrorValue), wid = ParticipantID
               between = ParticipantGroup, detailed = T, type = 3))
 
 
+
+#--- Step 4: Additional Visualizations ---#
+print(ggplot(participantData, aes(x = NotificationType, y = AvgErrorValue)) + geom_boxplot() + ggtitle("Comparing Average Error By Notification Type"))
+
 #--- Step 4: Run pairwise t-test with bonferroni corrections
 print(pairwise.t.test(participantData$AvgErrorValue, participantData$ParticipantGroup,
                       paired =T, p.adjust.method = "bonferroni"))
