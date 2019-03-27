@@ -98,3 +98,8 @@ print(leveneTest(AvgErrorValue~ParticipantGroup * NotificationType, data = parti
 if (!require(ez)) install.packages("ez")
 library(ez)
 print(ezANOVA(data = participantData, dv = .(AvgErrorValue), wid = ParticipantID, within = NotificationType, between = ParticipantGroup, detailed = T, type = 3))
+
+
+
+#--- Step 4: Additional Visualizations ---#
+print(ggplot(participantData, aes(x = NotificationType, y = AvgErrorValue)) + geom_boxplot() + ggtitle("Comparing Average Error By Notification Type"))
