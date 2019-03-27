@@ -97,4 +97,21 @@ print(leveneTest(AvgErrorValue~ParticipantGroup * NotificationType, data = parti
 #--- Step 3: Run the Mixed ANOVA Test ---#
 if (!require(ez)) install.packages("ez")
 library(ez)
-print(ezANOVA(data = participantData, dv = .(AvgErrorValue), wid = ParticipantID, within = NotificationType, between = ParticipantGroup, detailed = T, type = 3))
+print(ezANOVA(data = participantData, dv = .(AvgErrorValue), wid = ParticipantID, within = NotificationType, 
+              between = ParticipantGroup, detailed = T, type = 3))
+
+
+#--- Step 4: Run pairwise t-test with bonferroni corrections
+print(pairwise.t.test(participantData$AvgErrorValue, participantData$ParticipantGroup,
+                      paired =T, p.adjust.method = "bonferroni"))
+print(pairwise.t.test(participantData$AvgErrorValue, participantData$NotificationType,
+                      paired =T, p.adjust.method = "bonferroni"))
+#Comment later
+
+#--- Step 5: Summary
+require(Rmisc)
+print(summarySE(participantData, measurevar= "AvgErrorValue", groupvars="NotificationType"))
+
+
+
+
