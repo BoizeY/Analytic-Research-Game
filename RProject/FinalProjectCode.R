@@ -87,4 +87,14 @@ print(leveneTest(AvgErrorValue~ParticipantGroup * NotificationType, data = parti
 
 
 # 2g - Sphericity must be equal
-# We can confirm this with Mauchly's test
+# We can confirm this with ezANOVA which is run below
+# NotificationType -> p-value = 0.18
+# ParticipantGroup:NotificationType -> p-value = 0.18
+# Sphericity was equal and was not violated and so this assumption PASSES
+
+
+
+#--- Step 3: Run the Mixed ANOVA Test ---#
+if (!require(ez)) install.packages("ez")
+library(ez)
+print(ezANOVA(data = participantData, dv = .(AvgErrorValue), wid = ParticipantID, within = NotificationType, between = ParticipantGroup, detailed = T, type = 3))

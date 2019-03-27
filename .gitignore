@@ -27,3 +27,4 @@ sysinfo.txt
 *.ide-wal
 
 Analytic Research Game/ProjectSettings/ProjectVersion\.txt
+.Rproj.user
