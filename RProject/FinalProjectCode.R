@@ -21,8 +21,8 @@ if (!require(here))
 library(here)
 
 # Read in the data from the CSV
-filePath = here("FinalProjectData.csv")
-participantData = read.csv(filePath)
+#filePath = here("FinalProjectData.csv")
+#participantData = read.csv(filePath)
 
 
 
@@ -163,14 +163,14 @@ finalSummary <-
   summarySE(
     participantData,
     measurevar = "AvgErrorValue",
-    groupvars = c("NotificationType", "ParticipantGroup")
+    groupvars = c("NotificationType")
   )
 print(finalSummary)
 
 print(
   ggplot(
     finalSummary,
-    aes(x = ParticipantGroup, y = AvgErrorValue, fill = NotificationType)
+    aes(x = NotificationType, y = AvgErrorValue, fill = NotificationType)
   ) +
     geom_bar(
       position = position_dodge(),
@@ -180,21 +180,15 @@ print(
       size = .3
     ) +      # Thinner lines
     geom_errorbar(
-      aes(ymin = AvgErrorValue - se, ymax = AvgErrorValue + se),
+      aes(ymin = AvgErrorValue - sd, ymax = AvgErrorValue + sd),
       size = .3,
       # Thinner lines
       width = .2,
       position = position_dodge(.9)
     ) +
-    xlab("Participant Group") +
+    xlab("Notification Type") +
     ylab("Average Error Value") +
-    scale_fill_hue(
-      name = "notificationType",
-      # Legend label, use darker colors
-      breaks = c("NONE", "ICON", "COLOUR", "ANIMATION"),
-      labels = c("NONE", "ICON", "COLOUR", "ANIMATION")
-    ) +
     ggtitle("Comparing User Error Between Groups and Notification Types") +
-    scale_y_continuous(breaks = 0:40 * 0.1) +
+    #scale_y_continuous(breaks = 0:40 * 0.5) +
     theme_bw()
 )
