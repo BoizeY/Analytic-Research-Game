@@ -16,7 +16,8 @@
 
 ##--- Step 1 - Load in the Data ---##
 # Going to use the 'here' library so the data can be read in using a relative file path
-if (!require(here)) install.packages("here")
+if (!require(here))
+  install.packages("here")
 library(here)
 
 # Read in the data from the CSV
@@ -44,12 +45,18 @@ participantData = read.csv(filePath)
 
 # 2d - No significant outliers in any group of within subject factors or between subject factors
 # We can visualize the outliers by creating a box and whisker plot
-if (!require(ggpubr)) install.packages(("ggpubr"))
+if (!require(ggpubr))
+  install.packages(("ggpubr"))
 library(ggpubr)
-print(ggplot(participantData, aes(x = ParticipantGroup, y = AvgErrorValue, fill = NotificationType)) + geom_boxplot() + ggtitle("Comparing User Error Between Groups and Notification Types"))
-print(ggplot(participantData, aes(x = NotificationType, y = AvgErrorValue, fill = ParticipantGroup)) + geom_boxplot() + ggtitle("Comparing User Error Between Groups and Notification Types"))
+print(
+  ggplot(
+    participantData,
+    aes(x = ParticipantGroup, y = AvgErrorValue, fill = NotificationType)
+  ) + geom_boxplot() + ggtitle("Comparing User Error Between Groups and Notification Types")
+)
 # None of the box and whisker plots show any outliers so this assumption PASSES
 
+# Next we are going to be taking a look at the barchart of with error bar
 
 # 2e - DV in each combination of related groups is approximately normally distributed
 # We can check normality using the Shapiro-Wilk test
@@ -57,18 +64,29 @@ for (ParticipantGroup in levels(participantData$ParticipantGroup))
 {
   for (NotificationType in levels(participantData$NotificationType))
   {
-    cat(sprintf("Shapiro-Wilk test for group:%s, notification:%s\n", ParticipantGroup, NotificationType))
-    set <-participantData[participantData$ParticipantGroup == ParticipantGroup & participantData$NotificationType== NotificationType,]
+    cat(
+      sprintf(
+        "Shapiro-Wilk test for group:%s, notification:%s\n",
+        ParticipantGroup,
+        NotificationType
+      )
+    )
+    set <-
+      participantData[participantData$ParticipantGroup == ParticipantGroup &
+                        participantData$NotificationType == NotificationType, ]
     print(set)
-    sw<-shapiro.test(set$AvgErrorValue)
+    sw <- shapiro.test(set$AvgErrorValue)
     print(sw)
-    is_normal<-sw$p.value> 0.05
+    is_normal <- sw$p.value > 0.05
     
-    if (is_normal) print ("Normally distributed") else print ("NOT normally distributed!")
+    if (is_normal)
+      print ("Normally distributed")
+    else
+      print ("NOT normally distributed!")
     cat("\n\n")
   }
 }
-# Results: 
+# Results:
 # Group A~Animation is not normally distributed. However, it has a p-value of 0.02 which is reasonably close to being normally distributed
 # All the others are confirmed normally distributed by the Shapiro-Wilk tests
 # This assumption PASSES, outside of the one p-value. After conferring with the prof, it is confirmed to be PASSED
@@ -76,10 +94,13 @@ for (ParticipantGroup in levels(participantData$ParticipantGroup))
 
 # 2f - There needs to be homogeneity of variance for each combination
 # We can check this with the Levene's test
-if (!require(car)) install.packages("car")
+if (!require(car))
+  install.packages("car")
 library(car)
-print(leveneTest(AvgErrorValue~ParticipantGroup, data = participantData))
-print(leveneTest(AvgErrorValue~ParticipantGroup * NotificationType, data = participantData))
+print(leveneTest(AvgErrorValue ~ ParticipantGroup, data = participantData))
+print(
+  leveneTest(AvgErrorValue ~ ParticipantGroup * NotificationType, data = participantData)
+)
 # Results:
 # Test 1 -> p-value = 0.9454, so this PASSES
 # Test 2 -> p-value = 0.9895, so this PASSES
@@ -95,27 +116,85 @@ print(leveneTest(AvgErrorValue~ParticipantGroup * NotificationType, data = parti
 
 
 #--- Step 3: Run the Mixed ANOVA Test ---#
-if (!require(ez)) install.packages("ez")
+if (!require(ez))
+  install.packages("ez")
 library(ez)
-print(ezANOVA(data = participantData, dv = .(AvgErrorValue), wid = ParticipantID, within = NotificationType, 
-              between = ParticipantGroup, detailed = T, type = 3))
+print(
+  ezANOVA(
+    data = participantData,
+    dv = .(AvgErrorValue),
+    wid = ParticipantID,
+    within = NotificationType,
+    between = ParticipantGroup,
+    detailed = T,
+    type = 3
+  )
+)
 
 
 
 #--- Step 4: Additional Visualizations ---#
-print(ggplot(participantData, aes(x = NotificationType, y = AvgErrorValue)) + geom_boxplot() + ggtitle("Comparing Average Error By Notification Type"))
+print(
+  ggplot(participantData, aes(x = NotificationType, y = AvgErrorValue)) + geom_boxplot() + ggtitle("Comparing Average Error By Notification Type")
+)
 
 #--- Step 4: Run pairwise t-test with bonferroni corrections
-print(pairwise.t.test(participantData$AvgErrorValue, participantData$ParticipantGroup,
-                      paired =T, p.adjust.method = "bonferroni"))
-print(pairwise.t.test(participantData$AvgErrorValue, participantData$NotificationType,
-                      paired =T, p.adjust.method = "bonferroni"))
+print(
+  pairwise.t.test(
+    participantData$AvgErrorValue,
+    participantData$ParticipantGroup,
+    paired = T,
+    p.adjust.method = "bonferroni"
+  )
+)
+print(
+  pairwise.t.test(
+    participantData$AvgErrorValue,
+    participantData$NotificationType,
+    paired = T,
+    p.adjust.method = "bonferroni"
+  )
+)
 #Comment later
 
 #--- Step 5: Summary
 require(Rmisc)
-print(summarySE(participantData, measurevar= "AvgErrorValue", groupvars="NotificationType"))
+finalSummary <-
+  summarySE(
+    participantData,
+    measurevar = "AvgErrorValue",
+    groupvars = c("NotificationType", "ParticipantGroup")
+  )
+print(finalSummary)
 
-
-
-
+print(
+  ggplot(
+    finalSummary,
+    aes(x = ParticipantGroup, y = AvgErrorValue, fill = NotificationType)
+  ) +
+    geom_bar(
+      position = position_dodge(),
+      stat = "identity",
+      colour = "black",
+      # Use black outlines,
+      size = .3
+    ) +      # Thinner lines
+    geom_errorbar(
+      aes(ymin = AvgErrorValue - se, ymax = AvgErrorValue + se),
+      size = .3,
+      # Thinner lines
+      width = .2,
+      position = position_dodge(.9)
+    ) +
+    xlab("Participant Group") +
+    ylab("Average Error Value") +
+    scale_fill_hue(
+      name = "notificationType",
+      # Legend label, use darker colors
+      breaks = c("NONE", "ICON", "COLOUR", "ANIMATION"),
+      labels = c("NONE", "ICON", "COLOUR", "ANIMATION")
+    ) +
+    ggtitle("Comparing User Error Between Groups and Notification Types") +
+    scale_y_continuous(breaks = 0:40 * 0.1) +
+    theme_bw()
+)
