@@ -167,13 +167,17 @@ finalSummary <-
   )
 print(finalSummary)
 
+if (!require(scales))
+  install.packages("scales")
+library(scales)
+
 print(
   ggplot(
     finalSummary,
     aes(x = NotificationType, y = AvgErrorValue, fill = NotificationType)
   ) +
     geom_bar(
-      position = position_dodge(),
+      #position = position_dodge(),
       stat = "identity",
       colour = "black",
       # Use black outlines,
@@ -186,9 +190,11 @@ print(
       width = .2,
       position = position_dodge(.9)
     ) +
-    xlab("Notification Type") +
-    ylab("Average Error Value") +
-    ggtitle("Comparing User Error Between Groups and Notification Types") +
-    #scale_y_continuous(breaks = 0:40 * 0.5) +
-    theme_bw()
+    #xlab("Notification Type") +
+    #ylab("Average Error Value") +
+    ggtitle("Comparing Average Error Between Notification Types") +
+    #scale_y_continuous(breaks = 0:40 * 0.5, limits=c(0,4)) +
+    scale_y_continuous(name="Average Error Value", limits=c(2.8,3.8), oob = rescale_none) +
+    theme_bw() +
+    guides(fill=FALSE,color=FALSE)
 )
